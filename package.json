@@ -11,6 +11,13 @@
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html"
   },
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ],
   "dependencies": {
     "@foursquare/foursquare-places": "^1.0.3",
     "@googlemaps/google-maps-services-js": "^3.1.16",
