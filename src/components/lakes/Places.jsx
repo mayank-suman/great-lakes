@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { nearBySearch, getPhoto } from "../api/googleMaps";
+import { nearBySearch, getPhoto } from "../../api/googleMaps";
 
 export default function Places() {
   const [searchResult, setSearchResult] = useState([]);
@@ -36,9 +36,6 @@ export default function Places() {
     })();
   }, []);
   return (
-    <div>
-      <span>Places</span>
-      <pre>{JSON.stringify(searchResult, undefined, 2)}</pre>
-    </div>
+    <div>{/* <pre>{JSON.stringify(searchResult, undefined, 2)}</pre> */}</div>
   );
 }
