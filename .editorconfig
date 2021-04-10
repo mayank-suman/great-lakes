@@ -1,4 +1,4 @@
-[{js/**.js,test/**.js,js/**.jsx,**.hbs}]
+[{src/**.js,src/**.jsx,**.hbs}]
 indent_style=spaces
 indent_size=2
 charset=utf-8
