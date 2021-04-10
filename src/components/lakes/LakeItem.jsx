@@ -107,24 +107,3 @@ export default function LakeItem({ itemProps }) {
     </Grid>
   );
 }
-
-/*
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
-
-export default function LakeItem() {
-  const classes = useStyles();
-
-  return (
-    <Grid item xs={12}>
-      <Paper className={classes.paper}>xs=12</Paper>
-    </Grid>
-  );
-}
- */
