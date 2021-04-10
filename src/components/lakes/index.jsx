@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { nearBySearch, getPhoto } from "../../api/googleMaps";
+import { nearBySearch } from "../../api/googleMaps";
 
-import Places from "./Places.jsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-import LakeItem from "./LakeItem";
+import LakeItem from "./LakeCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
