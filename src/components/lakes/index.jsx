@@ -33,7 +33,7 @@ export default function index() {
         radius: "50000",
         type: "natural_feature",
         keyword: "lake",
-        fields: "photos,formatted_address,name,rating,opening_hours,geometry",
+        fields: "photos,vicinity,name,rating,opening_hours,geometry",
       });
 
       if (res.status === "OK" && res?.results?.length > 0) {
