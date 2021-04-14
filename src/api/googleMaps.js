@@ -45,6 +45,26 @@ export async function nearBySearch(params) {
   }
 }
 
+export async function getAutoCompletes(params) {
+  const { input = "" } = params;
+  try {
+    const url = `${apiBaseUrl}/place/autocomplete/json`;
+
+    const queryParams = new URLSearchParams({
+      ...params,
+      input,
+      key,
+    });
+
+    const res = await fetch(`${url}?${queryParams.toString()}`, fetchOptions);
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function getPhoto(params) {
   const { maxwidth = 400, referenceId = "" } = params;
   try {
