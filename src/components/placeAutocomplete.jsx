@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { getAutoCompletes } from "../api/googleMaps";
 
-export default function placeAutocomplete() {
+export default function placeAutocomplete({ onSelect }) {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
   const [currFieldVal, setFieldVal] = React.useState("");
@@ -50,6 +50,7 @@ export default function placeAutocomplete() {
       onClose={() => {
         setOpen(false);
       }}
+      onChange={onSelect}
       getOptionSelected={(option, value) => option.place_id === value.place_id}
       getOptionLabel={(option) => option.description}
       options={options}
@@ -65,12 +66,12 @@ export default function placeAutocomplete() {
           InputProps={{
             ...params.InputProps,
             endAdornment: (
-              <React.Fragment>
+              <>
                 {isLoading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : null}
                 {params.InputProps.endAdornment}
-              </React.Fragment>
+              </>
             ),
           }}
         />

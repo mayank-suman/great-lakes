@@ -27,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
 export default function LakeCard({ itemProps }) {
   const classes = useStyles();
   const { name, photos } = itemProps;
-  console.log(
-    "🚀 ~ file: LakeCard.jsx ~ line 25 ~ LakeCard ~ itemProps",
-    itemProps
-  );
   const [getPhotoUrl, setPhotoUrl] = useState("");
 
   useEffect(() => {
