@@ -5,6 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { getAutoCompletes } from "../api/googleMaps";
 
+// TODO: set default place
 export default function placeAutocomplete({ onSelect }) {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);

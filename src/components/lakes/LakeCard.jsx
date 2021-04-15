@@ -33,16 +33,19 @@ export default function LakeCard({ itemProps }) {
     (async () => {
       const res = await getPhoto({
         referenceId: photos && photos[0] && photos[0].photo_reference,
-        maxwidth: 520,
+        maxwidth: 250,
       });
 
       setPhotoUrl(res.url);
     })();
   }, []);
 
+  // TODO: create photos gallery modal
   return (
     <Card className={classes.root}>
       <CardActionArea>
+        {/* TODO: add skeleton */}
+        {/* TODO: use responsive images */}
         {getPhotoUrl ? (
           <CardMedia
             component="img"

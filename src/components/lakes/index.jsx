@@ -47,6 +47,8 @@ export default function index() {
       const res = await nearBySearch(getLakesParams(locationCoordinates));
 
       if (res.status === "OK" && res?.results?.length > 0) {
+        // TODO: show full data later
+        // TODO: add pagination
         setSearchResult(res.results.splice(0, 2));
       }
     })();

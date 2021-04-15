@@ -15,6 +15,8 @@ class App extends React.Component {
           <CssBaseline />
           <Container maxWidth="sm">
             {/* <Venue /> */}
+            {/* TODO: add header */}
+            {/* TODO: add signature */}
             <Lakes />
           </Container>
         </ThemeProvider>
