@@ -13,7 +13,7 @@ yarn i
 To run in hot module reloading mode:
 
 ```sh
-yarn deb
+yarn dev
 ```
 
 To create a production build:
