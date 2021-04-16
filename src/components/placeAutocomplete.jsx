@@ -43,7 +43,6 @@ export default function placeAutocomplete({ onSelect }) {
   return (
     <Autocomplete
       id="place-autocomplete"
-      style={{ width: 300 }}
       open={open}
       onOpen={() => {
         setOpen(true);

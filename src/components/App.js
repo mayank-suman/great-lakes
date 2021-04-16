@@ -13,7 +13,7 @@ class App extends React.Component {
       <>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
             {/* <Venue /> */}
             {/* TODO: add header */}
             {/* TODO: add signature */}
