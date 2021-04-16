@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ExploreIcon from "@material-ui/icons/Explore";
 
 import Cover from "./cover";
+import Gallery from "./gallery";
 import { getMapLinkUrl } from "../../../api/googleMaps";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,12 +25,17 @@ export default function LakeCard({ itemProps }) {
   const classes = useStyles();
   const { name, photos } = itemProps;
 
+  function handleCardClick() {
+    console.log("click");
+  }
+
   // TODO: create photos gallery modal
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={handleCardClick}>
       <CardActionArea>
         {/* TODO: add skeleton */}
         <Cover photos={photos} />
+        <Gallery />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {name}
