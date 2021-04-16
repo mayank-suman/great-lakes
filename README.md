@@ -7,25 +7,21 @@ Empty project.
 First install dependencies:
 
 ```sh
-npm install
+yarn i
 ```
 
 To run in hot module reloading mode:
 
 ```sh
-npm start
+yarn deb
 ```
 
 To create a production build:
 
 ```sh
-npm run build-prod
+yarn build
 ```
 
 ## Running
 
-Open the file `dist/index.html` in your browser
-
-## Credits
-
-Made with [createapp.dev](https://createapp.dev/)
+Open the URL `http://localhost:1234/` in your browser
