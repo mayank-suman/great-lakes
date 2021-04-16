@@ -27,6 +27,7 @@ function cover({ photos }) {
     })();
   }, []);
 
+  //  TODO: use responsive images
   return (
     <>
       {getPhotoUrl ? (

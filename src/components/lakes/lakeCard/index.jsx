@@ -29,7 +29,6 @@ export default function LakeCard({ itemProps }) {
     <Card className={classes.root}>
       <CardActionArea>
         {/* TODO: add skeleton */}
-        {/* TODO: use responsive images */}
         <Cover photos={photos} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
