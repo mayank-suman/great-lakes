@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
-import LakeItem from "./LakeCard";
+import LakeItem from "./lakeCard";
 import Autocomplete from "../placeAutocomplete.jsx";
 
 function getLakesParams(location) {
