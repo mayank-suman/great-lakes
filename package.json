@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "dev": "parcel serve src/index.html",
-    "build": "parcel build src/index.html --no-scope-hoist --dist-dir dist"
+    "build": "parcel build src/index.html --dist-dir dist"
   },
   "browserslist": [
     "last 3 and_chr versions",
