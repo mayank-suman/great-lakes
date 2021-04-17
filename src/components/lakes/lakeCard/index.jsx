@@ -11,8 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ExploreIcon from "@material-ui/icons/Explore";
 
 import Cover from "./cover";
-import useGallery from "../../../hooks/useGallery";
 import { getMapLinkUrl } from "../../../api/googleMaps";
+import useGalleryModal from "../../../hooks/useGalleryModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,29 +21,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LakeCard({ itemProps }) {
+export default function LakeCard({ itemProps: place }) {
   const classes = useStyles();
-  const { name, photos } = itemProps;
-
-  const html = <div>hi</div>;
-
-  const {
-    handleOpen: handleOpenGallery,
-    handleClose: handleCloseGallery,
-    isOpen: isGalleryOpen,
-    Modal,
-  } = useGallery(html);
+  const { handleOpen, handleClose, isOpen, Gallery } = useGalleryModal(place);
+  const { name, photos, vicinity, rating } = place;
 
   function handleCardClick(e) {
     e.preventDefault;
     console.log("click");
-    handleOpenGallery();
+    handleOpen();
   }
-
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 76 ~ LakeCard ~ isGalleryOpen",
-    isGalleryOpen
-  );
 
   // TODO: create photos gallery modal
   return (
@@ -51,13 +38,13 @@ export default function LakeCard({ itemProps }) {
       <CardActionArea>
         {/* TODO: add skeleton */}
         <Cover photos={photos} />
-        <Modal />
+        <Gallery />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {itemProps.vicinity}
+            {vicinity}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="div">
             <Grid
@@ -66,7 +53,7 @@ export default function LakeCard({ itemProps }) {
               justify="flex-start"
               alignItems="center"
             >
-              {itemProps.rating}
+              {rating}
               <StarIcon fontSize="small" />
             </Grid>
           </Typography>
@@ -74,7 +61,7 @@ export default function LakeCard({ itemProps }) {
       </CardActionArea>
       <CardActions>
         <IconButton aria-label="explore">
-          <a href={getMapLinkUrl(itemProps)} target="blank">
+          <a href={getMapLinkUrl(place)} target="blank">
             <ExploreIcon />
           </a>
         </IconButton>

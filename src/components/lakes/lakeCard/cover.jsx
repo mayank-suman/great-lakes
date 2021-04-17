@@ -19,7 +19,7 @@ function cover({ photos }) {
   useEffect(() => {
     (async () => {
       const res = await getPhoto({
-        referenceId: photos && photos[0] && photos[0].photo_reference,
+        referenceId: photos && photos[0]?.photo_reference,
         maxwidth: 250,
       });
 
