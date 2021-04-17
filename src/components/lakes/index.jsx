@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
-import LakeItem from "./lakeCard";
+const LakeItem = React.lazy(() => import("./lakeCard"));
 import Autocomplete from "../placeAutocomplete.jsx";
 
 function getLakesParams(location) {
@@ -91,7 +92,9 @@ export default function index() {
           <Grid container justify="space-between">
             {searchResult.map((result) => (
               <Grid item xs={12} sm={6} key={result.place_id}>
-                <LakeItem itemProps={result} />
+                <Suspense fallback={<CircularProgress color="inherit" />}>
+                  <LakeItem itemProps={result} />
+                </Suspense>
               </Grid>
             ))}
           </Grid>
