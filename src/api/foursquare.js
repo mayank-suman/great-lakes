@@ -1,7 +1,7 @@
 import Foursquare from "@foursquare/foursquare-places";
 
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+const CLIENT_ID = process.env.FOURSQUARE_REACT_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.FOURSQUARE_REACT_APP_CLIENT_SECRET;
 const foursquare = new Foursquare(CLIENT_ID, CLIENT_SECRET);
 
 export async function searchVenues(params) {

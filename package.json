@@ -2,14 +2,13 @@
   "name": "greate-lakes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
     "clean": "rm -rf dist",
     "dev": "parcel serve src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html --no-scope-hoist --dist-dir dist"
   },
   "browserslist": [
     "last 3 and_chr versions",
