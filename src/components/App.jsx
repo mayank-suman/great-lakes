@@ -15,8 +15,10 @@ class App extends React.Component {
           <CssBaseline />
           <Container maxWidth="md">
             {/* <Venue /> */}
-            {/* TODO: add header */}
             {/* TODO: add signature */}
+            {/* TODO: add location to URL */}
+
+            {/* BUG: fix cross domain */}
             <Lakes />
           </Container>
         </ThemeProvider>

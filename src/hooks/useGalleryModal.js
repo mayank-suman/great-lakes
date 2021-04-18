@@ -11,23 +11,53 @@ import useModal from "./useModal";
 import { getPlaceDetail, getPhoto } from "../api/googleMaps";
 import { Grid } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "80vw",
-    height: "70vw",
-  },
-  header: {
-    height: 50,
-    paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.background.default,
-  },
-  img: {
-    maxWidth: "100%",
-    overflow: "hidden",
-    display: "block",
-    width: "100%",
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  let modalHeight = "80vh";
+
+  // BUG: fix variable not working
+  if (theme.breakpoints.down("xs")) {
+    modalHeight = "60vh";
+  } else {
+    modalHeight = "80vh";
+  }
+
+  return {
+    root: {
+      width: "1000px",
+      height: "1000px",
+      maxWidth: "80vw",
+      maxHeight: modalHeight,
+    },
+    header: {
+      height: 50,
+      paddingLeft: theme.spacing(4),
+      backgroundColor: theme.palette.background.default,
+    },
+    footer: {
+      height: 50,
+      // padding: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
+    },
+    imageContainer: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: `calc(${modalHeight} - 100px)`,
+      width: "100%",
+      backgroundColor: theme.palette.common.black,
+    },
+    img: {
+      maxWidth: "100%",
+      overflow: "hidden",
+      display: "block",
+    },
+  };
+});
+
+// TODO: lazy load the component
+// TODO: Fix footer alignments
+// TODO: Fix focus trap
+// TODO: add image loader
 
 function useGalleryModal(place) {
   const classes = useStyles();
@@ -65,11 +95,13 @@ function useGalleryModal(place) {
             </Paper>
           </Grid>
           <Grid item>
-            <img
-              className={classes.img}
-              src={photos[activeStep].url}
-              alt={photos[activeStep].label}
-            />
+            <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                src={photos[activeStep].url}
+                alt={photos[activeStep].label}
+              />
+            </div>
           </Grid>
           <Grid item>
             <MobileStepper
@@ -77,6 +109,7 @@ function useGalleryModal(place) {
               position="static"
               variant="text"
               activeStep={activeStep}
+              className={classes.footer}
               nextButton={
                 <Button
                   size="small"

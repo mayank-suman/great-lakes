@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     fontFamily: "'Dela Gothic One', cursive;",
+    color: "#00bbec",
     // wordSpacing: ""
     padding: theme.spacing(2),
     fontSize: "5rem",

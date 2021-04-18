@@ -18,6 +18,7 @@ export default function useModal(innerHtml) {
     const left = 50;
 
     return {
+      outline: 0,
       top: `${top}%`,
       left: `${left}%`,
       transform: `translate(-${top}%, -${left}%)`,
