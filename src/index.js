@@ -7,6 +7,8 @@ import "./styles.scss";
 var mountNode = document.getElementById("app");
 ReactDOM.render(<App />, mountNode);
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept("./components/App.jsx", () => {
+//     ReactDOM.render(<App />, mountNode);
+//   });
+// }
