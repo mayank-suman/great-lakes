@@ -6,28 +6,52 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import CancelTwoToneIcon from "@material-ui/icons/CancelTwoTone";
 
 import useModal from "./useModal";
 import { getPlaceDetail, getPhoto } from "../api/googleMaps";
 import { Grid } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "80vw",
-    height: "70vw",
-  },
-  header: {
-    height: 50,
-    paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.background.default,
-  },
-  img: {
-    maxWidth: "100%",
-    overflow: "hidden",
-    display: "block",
-    width: "100%",
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  let modalHeight = "80vh";
+
+  return {
+    root: {
+      width: "1000px",
+      height: "1000px",
+      maxWidth: "80vw",
+      maxHeight: "80vh",
+      /* [theme.breakpoints.down("xs")]: {
+        maxHeight: "60vh",
+      }, */
+    },
+    header: {
+      padding: theme.spacing(2),
+      backgroundColor: theme.palette.background.default,
+    },
+    footer: {
+      padding: theme.spacing(2),
+    },
+    imageContainer: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: `calc(${modalHeight} - 100px)`,
+      width: "100%",
+      backgroundColor: theme.palette.common.black,
+    },
+    img: {
+      maxWidth: "100%",
+      overflow: "hidden",
+      display: "block",
+    },
+  };
+});
+
+// TODO: lazy load the component
+// TODO: Fix focus trap
+// TODO: add image loader
 
 function useGalleryModal(place) {
   const classes = useStyles();
@@ -59,17 +83,28 @@ function useGalleryModal(place) {
     <div className={classes.root}>
       {photosCount > 0 && (
         <Grid container direction="column" justify="space-between">
-          <Grid item>
-            <Paper square elevation={0} className={classes.header}>
-              <Typography>{photos[activeStep].label}</Typography>
+          <Grid item xs={12}>
+            <Paper square elevation={0}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="center"
+                className={classes.header}
+              >
+                <Typography>{photos[activeStep].label}</Typography>
+                <CancelTwoToneIcon className />
+              </Grid>
             </Paper>
           </Grid>
           <Grid item>
-            <img
-              className={classes.img}
-              src={photos[activeStep].url}
-              alt={photos[activeStep].label}
-            />
+            <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                src={photos[activeStep].url}
+                alt={photos[activeStep].label}
+              />
+            </div>
           </Grid>
           <Grid item>
             <MobileStepper
@@ -77,6 +112,7 @@ function useGalleryModal(place) {
               position="static"
               variant="text"
               activeStep={activeStep}
+              className={classes.footer}
               nextButton={
                 <Button
                   size="small"
@@ -142,7 +178,9 @@ function useGalleryModal(place) {
           maxwidth: 1280,
         });
 
-        updatePhoto(activeStep, "url", res.url);
+        if (res?.url) {
+          updatePhoto(activeStep, "url", res.url);
+        }
       })();
     }
   }, [isOpen, photos, activeStep]);

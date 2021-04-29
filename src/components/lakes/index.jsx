@@ -5,8 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
-const LakeItem = React.lazy(() => import("./lakeCard"));
 import Autocomplete from "../placeAutocomplete.jsx";
+const CardsList = React.lazy(() => import("./lakeCard/list"));
 
 function getLakesParams(location) {
   return {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     fontFamily: "'Dela Gothic One', cursive;",
-    // wordSpacing: ""
+    color: "#00bbec",
     padding: theme.spacing(2),
     fontSize: "5rem",
     [theme.breakpoints.up("md")]: {
@@ -88,17 +88,14 @@ export default function index() {
             onSelect={handleAutoCompleteSelect}
           />
         </Grid>
-        <Grid item>
-          <Grid container justify="space-between">
-            {searchResult.map((result) => (
-              <Grid item xs={12} sm={6} key={result.place_id}>
-                <Suspense fallback={<CircularProgress color="inherit" />}>
-                  <LakeItem itemProps={result} />
-                </Suspense>
-              </Grid>
-            ))}
+        {searchResult.length > 0 && (
+          <Grid item>
+            {/* TODO: instead on loader show skeleton */}
+            <Suspense fallback={<CircularProgress color="inherit" />}>
+              <CardsList items={searchResult} />
+            </Suspense>
           </Grid>
-        </Grid>
+        )}
       </Grid>
     </div>
   );
