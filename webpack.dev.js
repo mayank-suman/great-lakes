@@ -7,7 +7,5 @@ module.exports = merge(common, {
   devServer: {
     contentBase: "./",
     hot: true,
-    liveReload: true,
-    watchContentBase: true,
   },
 });

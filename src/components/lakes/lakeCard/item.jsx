@@ -10,7 +10,7 @@ import StarIcon from "@material-ui/icons/Star";
 import IconButton from "@material-ui/core/IconButton";
 import ExploreIcon from "@material-ui/icons/Explore";
 
-import Cover from "./cover";
+import Cover from "./cover.jsx";
 import { getMapLinkUrl } from "../../../api/googleMaps";
 import useGalleryModal from "../../../hooks/useGalleryModal";
 
