@@ -12,6 +12,7 @@ import ExploreIcon from "@material-ui/icons/Explore";
 
 import Cover from "./cover";
 import { getMapLinkUrl } from "../../../api/googleMaps";
+import useGalleryModal from "../../../hooks/useGalleryModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,22 +21,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LakeCard({ itemProps }) {
+export default function LakeCard({ itemProps: place }) {
   const classes = useStyles();
-  const { name, photos } = itemProps;
+  const { handleOpen, handleClose, isOpen, Gallery } = useGalleryModal(place);
+  const { name, photos, vicinity, rating } = place;
+
+  function handleCardClick(e) {
+    e.preventDefault;
+    console.log("click");
+    handleOpen();
+  }
 
   // TODO: create photos gallery modal
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={handleCardClick}>
       <CardActionArea>
         {/* TODO: add skeleton */}
         <Cover photos={photos} />
+        <Gallery />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {itemProps.vicinity}
+            {vicinity}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="div">
             <Grid
@@ -44,7 +53,7 @@ export default function LakeCard({ itemProps }) {
               justify="flex-start"
               alignItems="center"
             >
-              {itemProps.rating}
+              {rating}
               <StarIcon fontSize="small" />
             </Grid>
           </Typography>
@@ -52,7 +61,7 @@ export default function LakeCard({ itemProps }) {
       </CardActionArea>
       <CardActions>
         <IconButton aria-label="explore">
-          <a href={getMapLinkUrl(itemProps)} target="blank">
+          <a href={getMapLinkUrl(place)} target="blank">
             <ExploreIcon />
           </a>
         </IconButton>

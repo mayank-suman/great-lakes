@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
-import LakeItem from "./lakeCard";
 import Autocomplete from "../placeAutocomplete.jsx";
+const CardsList = React.lazy(() => import("./lakeCard/list"));
 
 function getLakesParams(location) {
   return {
@@ -23,6 +25,18 @@ const useStyles = makeStyles((theme) => ({
   },
   autocomplete: {
     margin: theme.spacing(1),
+  },
+  header: {
+    fontFamily: "'Dela Gothic One', cursive;",
+    color: "#00bbec",
+    padding: theme.spacing(2),
+    fontSize: "5rem",
+    [theme.breakpoints.up("md")]: {
+      fontSize: "7rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "3rem",
+    },
   },
 }));
 
@@ -49,7 +63,7 @@ export default function index() {
       if (res.status === "OK" && res?.results?.length > 0) {
         // TODO: show full data later
         // TODO: add pagination
-        setSearchResult(res.results.splice(0, 2));
+        setSearchResult(res.results.splice(0, 3));
       }
     })();
   }, [currPlaceId]);
@@ -58,26 +72,30 @@ export default function index() {
     <div className={classes.root}>
       <Grid
         container
-        spacing={1}
+        spacing={3}
         direction="column"
         justify="flex-start"
         alignItems="stretch"
       >
-        <Grid item>
+        <Grid container justify="center">
+          <Typography variant="h1" component="h2" className={classes.header}>
+            Great&nbsp;Lakes
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Autocomplete
             className={classes.autocomplete}
             onSelect={handleAutoCompleteSelect}
           />
         </Grid>
-        <Grid item>
-          <Grid container>
-            {searchResult.map((result) => (
-              <Grid item xs={6} key={result.place_id}>
-                <LakeItem itemProps={result} />
-              </Grid>
-            ))}
+        {searchResult.length > 0 && (
+          <Grid item>
+            {/* TODO: instead on loader show skeleton */}
+            <Suspense fallback={<CircularProgress color="inherit" />}>
+              <CardsList items={searchResult} />
+            </Suspense>
           </Grid>
-        </Grid>
+        )}
       </Grid>
     </div>
   );

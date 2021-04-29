@@ -2,14 +2,13 @@
   "name": "greate-lakes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
     "clean": "rm -rf dist",
-    "dev": "parcel serve src/index.html",
-    "build": "parcel build src/index.html",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html --out-dir dist",
     "dev:wp": "webpack serve --config webpack.dev.js"
   },
   "browserslist": [
@@ -40,7 +39,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
     "html-webpack-plugin": "^5.3.1",
-    "parcel": "^2.0.0-beta.2",
+    "parcel-bundler": "^1.12.5",
     "prettier": "^2.2.1",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
