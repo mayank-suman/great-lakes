@@ -7,8 +7,8 @@
   "license": "ISC",
   "scripts": {
     "clean": "rm -rf dist",
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html --out-dir dist"
+    "dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "browserslist": [
     "last 3 and_chr versions",
@@ -27,17 +27,24 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.14",
-    "@babel/preset-env": "^7.13.12",
+    "@babel/core": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
-    "@parcel/transformer-sass": "2.0.0-beta.2",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.1",
+    "dotenv-webpack": "^7.0.2",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
-    "parcel-bundler": "^1.12.5",
+    "html-webpack-plugin": "^5.3.1",
     "prettier": "^2.2.1",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "engines": {
     "node": "^14.15.3"

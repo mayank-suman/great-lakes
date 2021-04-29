@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
-import LakeItem from "./item";
+import LakeItem from "./item.jsx";
 
 export default function CardsList({ items }) {
   return (

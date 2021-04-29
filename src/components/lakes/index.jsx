@@ -6,7 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
 import Autocomplete from "../placeAutocomplete.jsx";
-const CardsList = React.lazy(() => import("./lakeCard/list"));
+const CardsList = React.lazy(() => import("./lakeCard/list.jsx"));
 
 function getLakesParams(location) {
   return {
