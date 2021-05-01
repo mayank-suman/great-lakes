@@ -6,7 +6,8 @@ module.exports = {
   entry: "/src/index.js",
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../dist"),
+    chunkFilename: "chunks/[id].js",
     clean: true,
   },
   module: {
@@ -36,7 +37,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: "/src/index.html",
     }),
     new Dotenv(),
   ],
