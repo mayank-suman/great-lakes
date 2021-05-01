@@ -5,7 +5,7 @@ module.exports = merge(common, {
   mode: "development",
   devtool: "cheap-module-source-map",
   devServer: {
-    contentBase: "./",
+    contentBase: "./src/",
     hot: true,
   },
 });

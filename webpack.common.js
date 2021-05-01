@@ -1,14 +1,18 @@
 const path = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: "/src/index.js",
+  entry: ["/src/index.js"],
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+  },
+  resolve: {
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
   module: {
     rules: [
@@ -18,9 +22,6 @@ module.exports = {
         use: [
           {
             loader: "babel-loader",
-            // options: {
-            //   plugins: inDev ? [require.resolve('react-refresh/babel')] : [],
-            // },
           },
         ],
       },
