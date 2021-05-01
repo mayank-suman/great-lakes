@@ -15,7 +15,7 @@ module.exports = merge(common, {
     new NetlifyPlugin({
       headers: {
         "index.html": {
-          "Access-Control-Allow-Origin": "https://greatlakes.mayanksuman.dev",
+          "Access-Control-Allow-Origin": "*",
         },
       },
     }),
