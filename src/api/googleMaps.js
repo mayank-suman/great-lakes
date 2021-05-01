@@ -1,7 +1,9 @@
-const apiBaseUrl = "https://maps.googleapis.com/maps/api";
+// eslint-disable-next-line no-undef
+const apiBaseUrl = `${GOOGLE_MAPS_API_BASE_URL}/maps/api`;
 
 // need to create an .env file - see instructions in link
 // https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app
+// eslint-disable-next-line no-undef
 export const key = process.env.GOOGLE_MAPS_PLACES_API_KEY || "";
 const randomSessionId = Math.random().toString(36).slice(2);
 
