@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
@@ -13,16 +12,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /(\.jsx?)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules\//,
-        use: [
-          {
-            loader: "babel-loader",
-            // options: {
-            //   plugins: inDev ? [require.resolve('react-refresh/babel')] : [],
-            // },
-          },
-        ],
+        use: [{ loader: "babel-loader" }],
       },
       {
         test: /\.css$/i,
