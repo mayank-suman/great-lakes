@@ -14,11 +14,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules\//,
-        use: [
-          {
-            loader: require.resolve("babel-loader"),
-          },
-        ],
+        use: [{ loader: "babel-loader" }],
       },
       {
         test: /\.css$/i,
