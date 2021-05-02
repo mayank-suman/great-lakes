@@ -15,7 +15,7 @@ module.exports = merge(common, {
           from: `${PROXY_BASE_PATH}/*`,
           to: `${GOOGLE_MAPS_API_BASE_URL}/:splat`,
           status: 200,
-          force: true,
+          force: true, // needed for url rewriting
         },
       ],
     }),
