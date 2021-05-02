@@ -1,6 +1,5 @@
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { merge } = require("webpack-merge");
-const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 
 const common = require("./webpack.common.js");
@@ -25,13 +24,7 @@ module.exports = merge(common, {
       },
     ],
   },
-  plugins: [
-    new ReactRefreshWebpackPlugin(),
-    new webpack.DefinePlugin({
-      GOOGLE_MAPS_API_BASE_URL: JSON.stringify(PROXY_BASE_PATH),
-    }),
-    new Dotenv(),
-  ],
+  plugins: [new ReactRefreshWebpackPlugin(), new Dotenv()],
   devServer: {
     contentBase: "./",
     hot: true,
