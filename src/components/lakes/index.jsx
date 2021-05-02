@@ -113,15 +113,15 @@ export default function index() {
             onSelect={handleAutoCompleteSelect}
           />
         </Grid>
-        {searchResult.length > 0 ? (
-          <Suspense fallback={renderCardSkeleton()}>
-            <Grid item>
-              <CardsList items={searchResult} />
-            </Grid>
-          </Suspense>
-        ) : (
-          isLoading && renderCardSkeleton()
-        )}
+        {isLoading
+          ? renderCardSkeleton()
+          : searchResult.length > 0 && (
+              <Suspense fallback={renderCardSkeleton()}>
+                <Grid item>
+                  <CardsList items={searchResult} />
+                </Grid>
+              </Suspense>
+            )}
       </Grid>
     </div>
   );
