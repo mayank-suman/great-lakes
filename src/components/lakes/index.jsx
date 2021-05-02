@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
 import Autocomplete from "../placeAutocomplete.jsx";
@@ -38,12 +39,16 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "3rem",
     },
   },
+  skeleton: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function index() {
   const classes = useStyles();
   const [searchResult, setSearchResult] = useState([]);
   const [currPlaceId, setCurrPlaceId] = useState("");
+  const [isLoading, setLoading] = React.useState(false);
 
   function handleAutoCompleteSelect(event, selectedPlace) {
     if (selectedPlace?.place_id) {
@@ -58,6 +63,7 @@ export default function index() {
   useEffect(() => {
     (async () => {
       if (!currPlaceId) return;
+      setLoading(true);
 
       const {
         geometry: { location },
@@ -70,9 +76,23 @@ export default function index() {
         // TODO: show full data later
         // TODO: add pagination
         setSearchResult(res.results.splice(0, 3));
+        setLoading(false);
       }
     })();
   }, [currPlaceId]);
+
+  const CardSkeleton = () => (
+    <Grid item>
+      <Grid container justify="space-between">
+        <Grid item xs={12} sm={6}>
+          <Skeleton variant="rect" height={447} className={classes.skeleton} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Skeleton variant="rect" height={447} className={classes.skeleton} />
+        </Grid>
+      </Grid>
+    </Grid>
+  );
 
   return (
     <div className={classes.root}>
@@ -94,13 +114,14 @@ export default function index() {
             onSelect={handleAutoCompleteSelect}
           />
         </Grid>
-        {searchResult.length > 0 && (
-          <Grid item>
-            {/* TODO: instead on loader show skeleton */}
-            <Suspense fallback={<CircularProgress color="inherit" />}>
+        {searchResult.length > 0 ? (
+          <Suspense fallback={CardSkeleton()}>
+            <Grid item>
               <CardsList items={searchResult} />
-            </Suspense>
-          </Grid>
+            </Grid>
+          </Suspense>
+        ) : (
+          isLoading && CardSkeleton()
         )}
       </Grid>
     </div>
