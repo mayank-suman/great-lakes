@@ -46,7 +46,13 @@ export default function index() {
   const [currPlaceId, setCurrPlaceId] = useState("");
 
   function handleAutoCompleteSelect(event, selectedPlace) {
-    setCurrPlaceId(selectedPlace.place_id);
+    if (selectedPlace?.place_id) {
+      setCurrPlaceId(selectedPlace.place_id);
+    } else {
+      // Clear cards list when no location selected
+      setCurrPlaceId("");
+      setSearchResult([]);
+    }
   }
 
   useEffect(() => {
