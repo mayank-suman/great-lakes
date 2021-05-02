@@ -12,7 +12,7 @@ module.exports = merge(common, {
     new NetlifyPlugin({
       redirects: [
         {
-          from: `${PROXY_BASE_PATH}/**`,
+          from: `${PROXY_BASE_PATH}/*`,
           to: `${GOOGLE_MAPS_API_BASE_URL}/:splat`,
           status: 200,
           force: true,
