@@ -2,7 +2,6 @@ import React, { useEffect, useState, Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
@@ -81,7 +80,7 @@ export default function index() {
     })();
   }, [currPlaceId]);
 
-  const CardSkeleton = () => (
+  const renderCardSkeleton = () => (
     <Grid item>
       <Grid container justify="space-between">
         <Grid item xs={12} sm={6}>
@@ -115,13 +114,13 @@ export default function index() {
           />
         </Grid>
         {searchResult.length > 0 ? (
-          <Suspense fallback={CardSkeleton()}>
+          <Suspense fallback={renderCardSkeleton()}>
             <Grid item>
               <CardsList items={searchResult} />
             </Grid>
           </Suspense>
         ) : (
-          isLoading && CardSkeleton()
+          isLoading && renderCardSkeleton()
         )}
       </Grid>
     </div>
