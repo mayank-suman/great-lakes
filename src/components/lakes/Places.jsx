@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { nearBySearch, getPhoto } from "../../api/googleMaps";
+import { nearBySearch, getPhoto } from "api/googleMaps";
 
 export default function Places() {
   const [searchResult, setSearchResult] = useState([]);

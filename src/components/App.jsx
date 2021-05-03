@@ -4,8 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider } from "@material-ui/core/styles";
 
-import theme from "../theme";
-import Lakes from "./lakes/index.jsx";
+import theme from "/theme.js";
+import Lakes from "components/lakes/index.jsx";
 // import Venue from "./Venue.jsx";
 class App extends React.Component {
   render() {

@@ -2,10 +2,11 @@ import React, { useEffect, useState, Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Skeleton from "@material-ui/lab/Skeleton";
 
-import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
-import Autocomplete from "../placeAutocomplete.jsx";
+import { nearBySearch, getPlaceDetail } from "api/googleMaps";
+import Autocomplete from "components/placeAutocomplete.jsx";
+import Box from "@material-ui/core/Box";
 const CardsList = React.lazy(() => import("./lakeCard/list.jsx"));
 
 function getLakesParams(location) {
@@ -38,20 +39,47 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "3rem",
     },
   },
+  skeleton: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function index() {
   const classes = useStyles();
   const [searchResult, setSearchResult] = useState([]);
   const [currPlaceId, setCurrPlaceId] = useState("");
+  const [isLoading, setLoading] = React.useState(false);
+
+  const renderCardSkeleton = () => (
+    <Grid item>
+      <Grid container justify="space-between">
+        {Array.from(Array(2).keys()).map((item, index) => (
+          <Grid item xs={12} sm={6} key={index}>
+            <Box className={classes.skeleton}>
+              <Skeleton variant="rect" height={200} />
+              <Skeleton />
+              <Skeleton width="60%" />
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Grid>
+  );
 
   function handleAutoCompleteSelect(event, selectedPlace) {
-    setCurrPlaceId(selectedPlace.place_id);
+    if (selectedPlace?.place_id) {
+      setCurrPlaceId(selectedPlace.place_id);
+    } else {
+      // Clear cards list when no location selected
+      setCurrPlaceId("");
+      setSearchResult([]);
+    }
   }
 
   useEffect(() => {
     (async () => {
       if (!currPlaceId) return;
+      setLoading(true);
 
       const {
         geometry: { location },
@@ -64,6 +92,7 @@ export default function index() {
         // TODO: show full data later
         // TODO: add pagination
         setSearchResult(res.results.splice(0, 3));
+        setLoading(false);
       }
     })();
   }, [currPlaceId]);
@@ -88,14 +117,15 @@ export default function index() {
             onSelect={handleAutoCompleteSelect}
           />
         </Grid>
-        {searchResult.length > 0 && (
-          <Grid item>
-            {/* TODO: instead on loader show skeleton */}
-            <Suspense fallback={<CircularProgress color="inherit" />}>
-              <CardsList items={searchResult} />
-            </Suspense>
-          </Grid>
-        )}
+        {isLoading
+          ? renderCardSkeleton()
+          : searchResult.length > 0 && (
+              <Suspense fallback={renderCardSkeleton()}>
+                <Grid item>
+                  <CardsList items={searchResult} />
+                </Grid>
+              </Suspense>
+            )}
       </Grid>
     </div>
   );
