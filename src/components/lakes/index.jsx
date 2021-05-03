@@ -6,6 +6,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import { nearBySearch, getPlaceDetail } from "api/googleMaps";
 import Autocomplete from "components/placeAutocomplete.jsx";
+import Box from "@material-ui/core/Box";
 const CardsList = React.lazy(() => import("./lakeCard/list.jsx"));
 
 function getLakesParams(location) {
@@ -49,6 +50,22 @@ export default function index() {
   const [currPlaceId, setCurrPlaceId] = useState("");
   const [isLoading, setLoading] = React.useState(false);
 
+  const renderCardSkeleton = () => (
+    <Grid item>
+      <Grid container justify="space-between">
+        {Array.from(Array(2).keys()).map((item, index) => (
+          <Grid item xs={12} sm={6} key={index}>
+            <Box className={classes.skeleton}>
+              <Skeleton variant="rect" height={200} />
+              <Skeleton />
+              <Skeleton width="60%" />
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Grid>
+  );
+
   function handleAutoCompleteSelect(event, selectedPlace) {
     if (selectedPlace?.place_id) {
       setCurrPlaceId(selectedPlace.place_id);
@@ -79,19 +96,6 @@ export default function index() {
       }
     })();
   }, [currPlaceId]);
-
-  const renderCardSkeleton = () => (
-    <Grid item>
-      <Grid container justify="space-between">
-        <Grid item xs={12} sm={6}>
-          <Skeleton variant="rect" height={447} className={classes.skeleton} />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Skeleton variant="rect" height={447} className={classes.skeleton} />
-        </Grid>
-      </Grid>
-    </Grid>
-  );
 
   return (
     <div className={classes.root}>
