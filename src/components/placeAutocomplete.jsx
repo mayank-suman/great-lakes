@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { getAutoCompletes } from "../api/googleMaps";
+import { getAutoCompletes } from "api/googleMaps";
 
 // TODO: set default place
 export default function placeAutocomplete({ onSelect }) {

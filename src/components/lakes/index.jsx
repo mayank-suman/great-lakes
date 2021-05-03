@@ -4,8 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-import { nearBySearch, getPlaceDetail } from "../../api/googleMaps";
-import Autocomplete from "../placeAutocomplete.jsx";
+import { nearBySearch, getPlaceDetail } from "api/googleMaps";
+import Autocomplete from "components/placeAutocomplete.jsx";
 const CardsList = React.lazy(() => import("./lakeCard/list.jsx"));
 
 function getLakesParams(location) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { searchVenues, getVenuePhotos } from "../api/foursquare";
+import { searchVenues, getVenuePhotos } from "api/foursquare";
 
 const Venue = () => {
   const [places, setPlaces] = useState([]);

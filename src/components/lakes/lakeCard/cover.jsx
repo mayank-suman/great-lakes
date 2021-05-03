@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 import BrokenImageIcon from "@material-ui/icons/BrokenImage";
 
-import { getPhoto } from "../../../api/googleMaps";
+import { getPhoto } from "api/googleMaps";
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
