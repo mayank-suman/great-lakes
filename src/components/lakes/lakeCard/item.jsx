@@ -12,7 +12,7 @@ import ExploreIcon from "@material-ui/icons/Explore";
 
 import Cover from "./cover.jsx";
 import { getMapLinkUrl } from "api/googleMaps";
-import useGalleryModal from "hooks/useGalleryModal";
+import lakesGalleryModal from "components/lakes/lakesGalleryModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LakeCard({ itemProps: place }) {
   const classes = useStyles();
-  const { handleOpen, handleClose, isOpen, Gallery } = useGalleryModal(place);
+  const { handleOpen, handleClose, isOpen, Gallery } = lakesGalleryModal(place);
   const { name, photos, vicinity, rating } = place;
 
   function handleCardClick(e) {

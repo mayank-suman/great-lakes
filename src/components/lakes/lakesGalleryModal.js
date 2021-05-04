@@ -8,7 +8,7 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import CancelTwoToneIcon from "@material-ui/icons/CancelTwoTone";
 
-import useModal from "./useModal";
+import useModal from "hooks/useModal";
 import { getPlaceDetail, getPhoto } from "api/googleMaps";
 import { Grid } from "@material-ui/core";
 
