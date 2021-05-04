@@ -12,7 +12,9 @@ import ExploreIcon from "@material-ui/icons/Explore";
 
 import Cover from "./cover.jsx";
 import { getMapLinkUrl } from "api/googleMaps";
-import lakesGalleryModal from "components/lakes/lakesGalleryModal";
+import LakesGalleryModal from "components/lakes/lakesGalleryModal.jsx";
+import useModal from "hooks/useModal";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +23,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LakeCard({ itemProps: place }) {
+export default function LakeItem({ itemProps: place }) {
   const classes = useStyles();
-  const { handleOpen, handleClose, isOpen, Gallery } = lakesGalleryModal(place);
+
+  const { handleOpen, handleClose, isOpen, Modal } = useModal(
+    <LakesGalleryModal
+      place={place}
+      handleCloseButtonClick={() => handleClose()}
+    />
+  );
+
   const { name, photos, vicinity, rating } = place;
 
   function handleCardClick(e) {
@@ -34,10 +43,10 @@ export default function LakeCard({ itemProps: place }) {
 
   // TODO: create photos gallery modal
   return (
-    <Card className={classes.root} onClick={handleCardClick}>
+    <Card className={classes.root}>
       <CardActionArea>
+        <Modal />
         <Cover photos={photos} />
-        <Gallery />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {name}
@@ -64,6 +73,7 @@ export default function LakeCard({ itemProps: place }) {
             <ExploreIcon />
           </a>
         </IconButton>
+        <Button onClick={handleCardClick}>Show more</Button>
       </CardActions>
     </Card>
   );
