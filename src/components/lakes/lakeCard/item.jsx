@@ -106,6 +106,6 @@ export default function LakeItem({ itemProps: place }) {
   );
 }
 
-LakeCard.propTypes = {
+LakeItem.propTypes = {
   itemProps: propTypes.object,
 };
