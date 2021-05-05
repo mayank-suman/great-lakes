@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -9,23 +9,30 @@ import StarIcon from "@material-ui/icons/Star";
 import ExploreIcon from "@material-ui/icons/Explore";
 import Button from "@material-ui/core/Button";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Cover from "./cover.jsx";
 import { getMapLinkUrl } from "api/googleMaps";
-import LakesGalleryModal from "components/lakes/lakesGalleryModal.jsx";
 import useModal from "hooks/useModal";
+const LakesGalleryModal = lazy(() =>
+  import("components/lakes/lakesGalleryModal.jsx")
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // maxWidth: 345,
     margin: theme.spacing(1),
   },
   button: {
     margin: theme.spacing(1),
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
 }));
 
 export default function LakeItem({ itemProps: place }) {
+  const { name, photos, vicinity, rating } = place;
   const classes = useStyles();
 
   const { handleOpen, handleClose, isOpen, Modal } = useModal(
@@ -35,8 +42,6 @@ export default function LakeItem({ itemProps: place }) {
     />
   );
 
-  const { name, photos, vicinity, rating } = place;
-
   function handleCardClick(e) {
     e.preventDefault;
     handleOpen();
@@ -45,7 +50,17 @@ export default function LakeItem({ itemProps: place }) {
   // TODO: create photos gallery modal
   return (
     <Card className={classes.root}>
-      <Modal />
+      {isOpen && (
+        <Suspense
+          fallback={
+            <Backdrop className={classes.backdrop} open>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          }
+        >
+          <Modal />
+        </Suspense>
+      )}
       <Cover photos={photos} />
       <CardContent>
         <Typography gutterBottom variant="h6" component="h2">
