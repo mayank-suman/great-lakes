@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme) => {
       overflow: "hidden",
       display: "block",
     },
+    crossButton: {
+      cursor: "pointer",
+    },
   };
 });
 
-// TODO: lazy load the component
-// TODO: Fix focus trap
 // TODO: add image loader
-
 function LakesGalleryModal({ place, handleCloseButtonClick }) {
   const classes = useStyles();
   const theme = useTheme();
@@ -125,7 +125,10 @@ function LakesGalleryModal({ place, handleCloseButtonClick }) {
                 className={classes.header}
               >
                 <Typography>{photos[activeStep].label}</Typography>
-                <CancelTwoToneIcon onClick={handleCloseButtonClick} />
+                <CancelTwoToneIcon
+                  onClick={handleCloseButtonClick}
+                  className={classes.crossButton}
+                />
               </Grid>
             </Paper>
           </Grid>
