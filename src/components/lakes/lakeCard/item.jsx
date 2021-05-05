@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -68,3 +69,7 @@ export default function LakeCard({ itemProps: place }) {
     </Card>
   );
 }
+
+LakeCard.propTypes = {
+  itemProps: propTypes.object,
+};
