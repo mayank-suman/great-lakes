@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import propTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -104,3 +105,7 @@ export default function LakeItem({ itemProps: place }) {
     </Card>
   );
 }
+
+LakeCard.propTypes = {
+  itemProps: propTypes.object,
+};
