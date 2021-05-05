@@ -8,7 +8,6 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import CancelTwoToneIcon from "@material-ui/icons/CancelTwoTone";
 
-import useModal from "./useModal";
 import { getPlaceDetail, getPhoto } from "api/googleMaps";
 import { Grid } from "@material-ui/core";
 
@@ -46,14 +45,14 @@ const useStyles = makeStyles((theme) => {
       overflow: "hidden",
       display: "block",
     },
+    crossButton: {
+      cursor: "pointer",
+    },
   };
 });
 
-// TODO: lazy load the component
-// TODO: Fix focus trap
 // TODO: add image loader
-
-function useGalleryModal(place) {
+function LakesGalleryModal({ place, handleCloseButtonClick }) {
   const classes = useStyles();
   const theme = useTheme();
   const { place_id } = place;
@@ -79,7 +78,40 @@ function useGalleryModal(place) {
     });
   }
 
-  const html = (
+  useEffect(() => {
+    (async () => {
+      const { photos: photosMeta } = await getPlaceDetail({ place_id });
+      const pm = photosMeta.reduce((finalObj, currMeta, index) => {
+        finalObj[index] = {
+          photoId: currMeta.photo_reference,
+          url: "",
+        };
+        return finalObj;
+      }, {});
+
+      setPhotos(pm);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (photosCount > 0) {
+      (async () => {
+        const currPhoto = photos[activeStep];
+        if (currPhoto.url) return;
+
+        const res = await getPhoto({
+          referenceId: currPhoto?.photoId,
+          maxwidth: 1280,
+        });
+
+        if (res?.url) {
+          updatePhoto(activeStep, "url", res.url);
+        }
+      })();
+    }
+  }, [photos, activeStep]);
+
+  return (
     <div className={classes.root}>
       {photosCount > 0 && (
         <Grid container direction="column" justify="space-between">
@@ -93,7 +125,10 @@ function useGalleryModal(place) {
                 className={classes.header}
               >
                 <Typography>{photos[activeStep].label}</Typography>
-                <CancelTwoToneIcon className />
+                <CancelTwoToneIcon
+                  onClick={handleCloseButtonClick}
+                  className={classes.crossButton}
+                />
               </Grid>
             </Paper>
           </Grid>
@@ -147,50 +182,6 @@ function useGalleryModal(place) {
       )}
     </div>
   );
-
-  const { handleOpen, handleClose, isOpen, Modal } = useModal(html);
-
-  useEffect(() => {
-    if (isOpen) {
-      (async () => {
-        const { photos: photosMeta } = await getPlaceDetail({ place_id });
-        const pm = photosMeta.reduce((finalObj, currMeta, index) => {
-          finalObj[index] = {
-            photoId: currMeta.photo_reference,
-            url: "",
-          };
-          return finalObj;
-        }, {});
-
-        setPhotos(pm);
-      })();
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen && photosCount > 0) {
-      (async () => {
-        const currPhoto = photos[activeStep];
-        if (currPhoto.url) return;
-
-        const res = await getPhoto({
-          referenceId: currPhoto?.photoId,
-          maxwidth: 1280,
-        });
-
-        if (res?.url) {
-          updatePhoto(activeStep, "url", res.url);
-        }
-      })();
-    }
-  }, [isOpen, photos, activeStep]);
-
-  return {
-    handleOpen,
-    handleClose,
-    isOpen,
-    Gallery: Modal,
-  };
 }
 
-export default useGalleryModal;
+export default LakesGalleryModal;
