@@ -91,6 +91,7 @@ export default function index() {
       if (res.status === "OK" && res?.results?.length > 0) {
         // TODO: show full data later
         // TODO: add pagination
+        // TODO: make items count configurable
         setSearchResult(res.results.splice(0, 3));
         setLoading(false);
       }
