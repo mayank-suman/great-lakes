@@ -3,7 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { getAutoCompletes } from "api/googleMaps";
+import { getAutoCompletes } from "api/googleMaps.js";
+import { Paper, Popper, PopperProps, styled } from "@material-ui/core";
 
 // TODO: set default place
 export default function placeAutocomplete({ onSelect }) {
@@ -39,6 +40,30 @@ export default function placeAutocomplete({ onSelect }) {
       setOptions([]);
     }
   }, [open]);
+
+  const CustomPopper = (props: PopperProps) => {
+    return (
+      <Popper {...props}>
+        <Paper>
+          {props.children}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "flex-end",
+            }}
+          >
+            <span style={{ padding: "5px" }}>
+              <img
+                src="public/images/powered_by_google_on_white.png"
+                alt="powered by google"
+              />
+            </span>
+          </div>
+        </Paper>
+      </Popper>
+    );
+  };
 
   return (
     <Autocomplete
@@ -76,6 +101,8 @@ export default function placeAutocomplete({ onSelect }) {
           }}
         />
       )}
+      PopperComponent={CustomPopper}
+      PaperComponent={(props) => <div {...props}>{props.children}</div>}
     />
   );
 }

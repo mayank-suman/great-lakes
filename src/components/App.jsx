@@ -5,7 +5,6 @@ import { ThemeProvider } from "@material-ui/core/styles";
 
 import theme from "/theme.js";
 import Lakes from "components/lakes/index.jsx";
-import GoogleBranding from "/components/GoogleBranding.jsx";
 // import Venue from "./Venue.jsx";
 class App extends React.Component {
   render() {
@@ -22,7 +21,6 @@ class App extends React.Component {
             <Lakes />
           </Container>
         </ThemeProvider>
-        <GoogleBranding />
       </>
     );
   }

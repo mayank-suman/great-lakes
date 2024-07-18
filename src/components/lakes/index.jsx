@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import { nearBySearch, getPlaceDetail } from "api/googleMaps";
-import Autocomplete from "components/placeAutocomplete.jsx";
+import Autocomplete from "components/placeAutocomplete.tsx";
 import Box from "@material-ui/core/Box";
 const CardsList = React.lazy(() => import("./lakeCard/list.jsx"));
 
@@ -81,9 +81,8 @@ export default function index() {
       if (!currPlaceId) return;
       setLoading(true);
 
-      const {
-        geometry: { location },
-      } = await getPlaceDetail({ place_id: currPlaceId });
+      const data = await getPlaceDetail({ place_id: currPlaceId });
+      const location = data?.geometry?.location ?? {};
 
       const locationCoordinates = Object.values(location).join(",");
       const res = await nearBySearch(getLakesParams(locationCoordinates));
